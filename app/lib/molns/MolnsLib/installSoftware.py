@@ -58,7 +58,7 @@ class InstallSW:
          "sudo rm -rf /usr/local/molnsutil;sudo mkdir -p /usr/local/molnsutil;sudo chown ubuntu /usr/local/molnsutil",
          #"cd /usr/local/ && git clone https://github.com/Molns/molnsutil.git",
          "cd /usr/local/ && git clone https://github.com/briandrawert/molnsutil.git",
-         "cd /usr/local/molnsutil && git checkout molnsutil_state",
+         #"cd /usr/local/molnsutil && git checkout molnsutil_state",
          "cd /usr/local/molnsutil && sudo python setup.py install"
         ],
 
@@ -86,7 +86,7 @@ class InstallSW:
             "cd /usr/local/StochKit && ./install.sh",
          
             #"wget https://github.com/StochSS/stochss/blob/master/ode-1.0.4.tgz?raw=true -q -O /tmp/ode.tgz",
-            "wget https://github.com/StochSS/StochKit_ode/archive/master.tar.gz?raw=true -q -O /tmp/ode.tgz"
+            "wget https://github.com/StochSS/StochKit_ode/archive/master.tar.gz?raw=true -q -O /tmp/ode.tgz",
             "cd /tmp && tar -xzf /tmp/ode.tgz",
             "sudo mv /tmp/StochKit_ode-master /usr/local/ode",
             "rm /tmp/ode.tgz",

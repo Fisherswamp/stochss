@@ -377,15 +377,12 @@ class StatusPage(BaseHandler):
                 else:
                     job.status = "Failed"
             elif job.resource.lower() == "molns":
-                if molnsConfig:
+                if molnsConfig and hasattr(job,'molnsPID'):
                     job_status = molns.MOLNSExec.job_status([job.molnsPID], molnsConfig)
-                      
                     status = 'Running' if job_status['running'] else 'Finished'
-                      
                     if status == 'Finished':
                         with open(file_to_check, 'w') as f:
                             f.write('0')
-
                     job.status = status
                 else:
                     job.status = 'Unknown'

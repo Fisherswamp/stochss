@@ -296,6 +296,7 @@ class ParameterSweepPage(BaseHandler):
         return job
 
     def runMolns(self, data):
+        logging.info('parametersweep.runMolns()\n')
         modelDb = StochKitModelWrapper.get_by_id(data["modelID"])
 
         path = os.path.abspath(os.path.dirname(__file__))
@@ -365,7 +366,7 @@ class ParameterSweepPage(BaseHandler):
                 templateData['initial_conditions'] = modelDb.spatial["initial_conditions"]
                 templateData['subdomains'] = meshWrapperDb.subdomains
 
-            program = os.path.join(dataDir, 'program.py')
+            program = os.path.join(dataDir, 'stochss_parametersweep_program.py')
 
             with open(program, 'w') as f:
                 jsonString = json.dumps(templateData, indent = 4, sort_keys = True)
@@ -425,7 +426,7 @@ class ParameterSweepVisualizationPage(BaseHandler):
             except (IOError, molns.MOLNSException) as e:
                 initialData['stdout'] = str(e)
 
-                
+        logging.info("ParameterSweepVisualizationPage.get() jobDb.resource={0} jobDb.output_stored={1}".format(jobDb.resource, jobDb.output_stored))        
         if jobDb.resource == 'local' or  jobDb.output_stored:
             try:
                 with open(os.path.join(jobDb.outData, 'results'), 'r') as f:
@@ -434,10 +435,10 @@ class ParameterSweepVisualizationPage(BaseHandler):
                 initialData['status'] = 'Finished'
             except IOError as e:
                 initialData['data'] = {}
-        #logging.error('*'*80)
+        logging.error('*'*80)
         #logging.error("{0}".format(**{'initialData' : json.dumps(initialData)}))
-        #logging.error("{0}".format(initialData))
-        #logging.error('*'*80)
+        logging.error("{0}".format(initialData))
+        logging.error('*'*80)
         self.render_response('parameter_sweep_visualization.html', **{'initialData' : json.dumps(initialData)})
 
     def post(self, jobID=None):
